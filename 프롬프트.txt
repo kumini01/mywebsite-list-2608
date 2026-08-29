@@ -1,0 +1,48 @@
+# 개인용 즐겨찾기 홈페이지 제작 프롬프트
+
+개인용 "자주 방문 사이트 모음" 홈페이지를 HTML 파일 하나로 만들어줘.
+
+## 용도
+- 브라우저 시작 페이지 또는 새 탭 페이지로 사용할 개인용 바로가기 모음
+- 사용자는 나 혼자이며, 매일 여러 번 열어보는 페이지
+
+## 구성
+
+2x2 카드 그리드로 아래 4개 카테고리를 배치:
+
+### 1. 검색·포털 (초록 계열 강조색)
+- 구글: https://www.google.com
+- 네이버: https://www.naver.com
+- 다음: https://www.daum.net
+
+### 2. 이메일 (파랑 계열 강조색)
+- 다음메일: https://mail.daum.net
+- 구글메일: https://mail.google.com
+- 네이버메일: https://mail.naver.com
+
+### 3. 생성형 AI (보라 계열 강조색)
+- ChatGPT: https://chatgpt.com
+- 제미나이: https://gemini.google.com
+- 클로드: https://claude.com
+- 퍼플렉시티: https://www.perplexity.ai
+
+### 4. 쇼핑 (테라코타/갈색 계열 강조색)
+- 다나와: https://www.danawa.com
+- 네이버쇼핑: https://shopping.naver.com
+- G마켓: https://www.gmarket.co.kr
+- 쿠팡: https://www.coupang.com
+
+## 디자인 톤
+- 따뜻한 종이색 배경(#F6F5F1), 세리프 폰트(Noto Serif KR)로 제목, 산세리프(Noto Sans KR)로 링크 텍스트
+- 각 카드는 흰 배경의 둥근 카드 형태, 카테고리별 강조색과 원형 이니셜 배지 사용
+- 상단에 시간대별 인사말("좋은 아침이에요" 등)과 실시간 시계, 오늘 날짜 표시
+- 카드가 살짝 위로 뜨며 순차적으로 나타나는 로드 애니메이션 (prefers-reduced-motion 대응)
+- 모든 링크는 새 탭(target="_blank")으로 열리게 처리
+- 모바일에서는 1열 그리드로 반응형 전환
+
+## 기술 조건
+- 순수 HTML/CSS/JS 단일 파일, 외부 빌드 도구 없이 브라우저에서 바로 열리도록 작성
+- 구글 폰트(Noto Serif KR, Noto Sans KR) CDN 사용 가능
+
+## 수정 요청 시 참고
+카테고리 추가/삭제, 링크 추가/삭제, 색상 변경, 레이아웃(그리드 열 수) 변경 등을 구체적으로 명시할 것.
