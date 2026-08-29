@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>나의 즐겨찾기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F6F5F1;
+    --card-bg: #FFFFFF;
+    --text-main: #2B2924;
+    --text-sub: #7A776E;
+    --green: #2F7D5A;
+    --green-bg: #E7F2EC;
+    --blue: #2B6CB0;
+    --blue-bg: #E8F0FA;
+    --purple: #6B46C1;
+    --purple-bg: #F0EAFB;
+    --terracotta: #A0522D;
+    --terracotta-bg: #F5E9E1;
+    --shadow: 0 4px 16px rgba(43, 41, 36, 0.06);
+    --shadow-hover: 0 8px 24px rgba(43, 41, 36, 0.12);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text-main);
+    font-family: 'Noto Sans KR', sans-serif;
+    padding: 48px 24px 80px;
+  }
+
+  .header {
+    max-width: 960px;
+    margin: 0 auto 40px;
+    text-align: center;
+  }
+
+  .greeting {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 700;
+    font-size: clamp(28px, 5vw, 40px);
+    margin: 0 0 12px;
+  }
+
+  .datetime {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 14px;
+    color: var(--text-sub);
+    font-size: 16px;
+  }
+
+  .clock {
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--text-main);
+  }
+
+  .grid {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: var(--shadow);
+    opacity: 0;
+    transform: translateY(16px);
+    animation: rise 0.6s ease forwards;
+  }
+
+  .card:nth-child(1) { animation-delay: 0.05s; }
+  .card:nth-child(2) { animation-delay: 0.15s; }
+  .card:nth-child(3) { animation-delay: 0.25s; }
+  .card:nth-child(4) { animation-delay: 0.35s; }
+
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .card-title {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 700;
+    font-size: 19px;
+    margin: 0;
+  }
+
+  .links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .links a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--text-main);
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 15px;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+
+  .site-dot {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    color: #fff;
+  }
+
+  .links a:hover {
+    transform: translateX(2px);
+  }
+
+  .links a .arrow {
+    margin-left: auto;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    color: var(--text-sub);
+  }
+
+  .links a:hover .arrow { opacity: 1; }
+
+  /* Category accents */
+  .search .badge { background: var(--green-bg); color: var(--green); }
+  .search .links a:hover { background: var(--green-bg); }
+  .search .site-dot { background: var(--green); }
+
+  .email .badge { background: var(--blue-bg); color: var(--blue); }
+  .email .links a:hover { background: var(--blue-bg); }
+  .email .site-dot { background: var(--blue); }
+
+  .ai .badge { background: var(--purple-bg); color: var(--purple); }
+  .ai .links a:hover { background: var(--purple-bg); }
+  .ai .site-dot { background: var(--purple); }
+
+  .shopping .badge { background: var(--terracotta-bg); color: var(--terracotta); }
+  .shopping .links a:hover { background: var(--terracotta-bg); }
+  .shopping .site-dot { background: var(--terracotta); }
+
+  @media (max-width: 640px) {
+    .grid { grid-template-columns: 1fr; }
+    .datetime { flex-direction: column; gap: 4px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+    .links a, .links a:hover {
+      transform: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1 class="greeting" id="greeting">안녕하세요</h1>
+  <div class="datetime">
+    <span class="clock" id="clock">00:00:00</span>
+    <span id="date">0000년 0월 0일</span>
+  </div>
+</div>
+
+<div class="grid">
+
+  <section class="card search">
+    <div class="card-header">
+      <div class="badge">검</div>
+      <h2 class="card-title">검색·포털</h2>
+    </div>
+    <ul class="links">
+      <li><a href="https://www.google.com" target="_blank" rel="noopener"><span class="site-dot">G</span>구글<span class="arrow">→</span></a></li>
+      <li><a href="https://www.naver.com" target="_blank" rel="noopener"><span class="site-dot">N</span>네이버<span class="arrow">→</span></a></li>
+      <li><a href="https://www.daum.net" target="_blank" rel="noopener"><span class="site-dot">D</span>다음<span class="arrow">→</span></a></li>
+    </ul>
+  </section>
+
+  <section class="card email">
+    <div class="card-header">
+      <div class="badge">메</div>
+      <h2 class="card-title">이메일</h2>
+    </div>
+    <ul class="links">
+      <li><a href="https://mail.daum.net" target="_blank" rel="noopener"><span class="site-dot">D</span>다음메일<span class="arrow">→</span></a></li>
+      <li><a href="https://mail.google.com" target="_blank" rel="noopener"><span class="site-dot">G</span>구글메일<span class="arrow">→</span></a></li>
+      <li><a href="https://mail.naver.com" target="_blank" rel="noopener"><span class="site-dot">N</span>네이버메일<span class="arrow">→</span></a></li>
+    </ul>
+  </section>
+
+  <section class="card ai">
+    <div class="card-header">
+      <div class="badge">AI</div>
+      <h2 class="card-title">생성형 AI</h2>
+    </div>
+    <ul class="links">
+      <li><a href="https://chatgpt.com" target="_blank" rel="noopener"><span class="site-dot">C</span>ChatGPT<span class="arrow">→</span></a></li>
+      <li><a href="https://gemini.google.com" target="_blank" rel="noopener"><span class="site-dot">제</span>제미나이<span class="arrow">→</span></a></li>
+      <li><a href="https://claude.com" target="_blank" rel="noopener"><span class="site-dot">클</span>클로드<span class="arrow">→</span></a></li>
+      <li><a href="https://www.perplexity.ai" target="_blank" rel="noopener"><span class="site-dot">P</span>퍼플렉시티<span class="arrow">→</span></a></li>
+    </ul>
+  </section>
+
+  <section class="card shopping">
+    <div class="card-header">
+      <div class="badge">쇼</div>
+      <h2 class="card-title">쇼핑</h2>
+    </div>
+    <ul class="links">
+      <li><a href="https://www.danawa.com" target="_blank" rel="noopener"><span class="site-dot">다</span>다나와<span class="arrow">→</span></a></li>
+      <li><a href="https://shopping.naver.com" target="_blank" rel="noopener"><span class="site-dot">N</span>네이버쇼핑<span class="arrow">→</span></a></li>
+      <li><a href="https://www.gmarket.co.kr" target="_blank" rel="noopener"><span class="site-dot">G</span>G마켓<span class="arrow">→</span></a></li>
+      <li><a href="https://www.coupang.com" target="_blank" rel="noopener"><span class="site-dot">쿠</span>쿠팡<span class="arrow">→</span></a></li>
+    </ul>
+  </section>
+
+</div>
+
+<script>
+  const greetingEl = document.getElementById('greeting');
+  const clockEl = document.getElementById('clock');
+  const dateEl = document.getElementById('date');
+
+  const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+
+  function greetingByHour(h) {
+    if (h >= 5 && h < 11) return '좋은 아침이에요';
+    if (h >= 11 && h < 14) return '점심 맛있게 드세요';
+    if (h >= 14 && h < 18) return '활기찬 오후예요';
+    if (h >= 18 && h < 22) return '편안한 저녁이에요';
+    return '늦은 밤이네요';
+  }
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function tick() {
+    const now = new Date();
+    greetingEl.textContent = greetingByHour(now.getHours());
+    clockEl.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    dateEl.textContent = `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일 (${weekdays[now.getDay()]})`;
+  }
+
+  tick();
+  setInterval(tick, 1000);
+</script>
+
+</body>
+</html>
